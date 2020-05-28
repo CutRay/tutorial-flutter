@@ -33,8 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text('App Name'),
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+        body: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Text(
