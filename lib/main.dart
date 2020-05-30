@@ -27,92 +27,49 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _gridData = <Widget>[
-    Container(
-        color: Colors.red,
-        width: 200.0,
-        height: 200.0,
-        child: Text(
-          "One",
-          style: TextStyle(
-              fontSize: 32.0,
-              color: const Color(0xFF000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Roboto"),
-        )),
-    Container(
-        color: Colors.red,
-        width: 200.0,
-        height: 200.0,
-        child: Text(
-          "Two",
-          style: TextStyle(
-              fontSize: 32.0,
-              color: const Color(0xFF000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Roboto"),
-        )),
-    Container(
-        color: Colors.red,
-        width: 200.0,
-        height: 200.0,
-        child: Text(
-          "Three",
-          style: TextStyle(
-              fontSize: 32.0,
-              color: const Color(0xFF000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Roboto"),
-        )),
-    Container(
-        color: Colors.red,
-        width: 200.0,
-        height: 200.0,
-        child: Text(
-          "Four",
-          style: TextStyle(
-              fontSize: 32.0,
-              color: const Color(0xFF000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Roboto"),
-        )),
-    Container(
-        color: Colors.red,
-        width: 200.0,
-        height: 200.0,
-        child: Text(
-          "Five",
-          style: TextStyle(
-              fontSize: 32.0,
-              color: const Color(0xFF000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Roboto"),
-        )),
-    Container(
-        color: Colors.red,
-        width: 200.0,
-        height: 200.0,
-        child: Text(
-          "Six",
-          style: TextStyle(
-              fontSize: 32.0,
-              color: const Color(0xFF000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Roboto"),
-        ))
-  ];
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
         title: Text('App Name'),
       ),
-      body: GridView.extent(
-          maxCrossAxisExtent: 300.0,
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 10.0,
-          padding: const EdgeInsets.all(10.0),
-          children: _gridData),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Left',
+              style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto'),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              'Center',
+              style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto'),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'Right',
+              style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto'),
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.android), onPressed: fabPressed),
     );
