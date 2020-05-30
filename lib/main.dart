@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _message;
-  final controller = TextEditingController();
+  bool _checked = false;
   @override
   void initState() {
     _message = 'ok';
@@ -43,38 +43,47 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text('App Name'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Text(_message,
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 32.0))),
-              Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: TextField(
-                    controller: controller,
-                    onChanged: textChanged,
-                    style: TextStyle(
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Roboto',
-                        color: const Color(0xFFFF0000)),
-                  )),
-            ],
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              _message,
+              style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto'),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Checkbox(
+                  value: _checked,
+                  onChanged: checkChanged,
+                ),
+                Text(
+                  'check',
+                  style: TextStyle(
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto'),
+                )
+              ],
+            )
+          ],
         ));
   }
 
-  void textChanged(String val) {
+  void checkChanged(bool val) {
     setState(() {
-      _message = 'you said ' + val.toUpperCase();
+      _checked = val;
+      _message = val ? 'checked' : 'not checked';
     });
   }
 }
