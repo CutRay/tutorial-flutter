@@ -34,42 +34,48 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('App Name'),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
+          SizedBox(
+            width: 100.0,
+            height: 200.0,
             child: Container(
-              color: Color.fromARGB(255, 255, 255, 0),
-              child: Text(
-                'One',
-                style: TextStyle(
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Roboto'),
+              child: Container(
+                color: Color.fromARGB(255, 255, 255, 0),
+                child: Text(
+                  'One',
+                  style: TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto'),
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(25.0),
-          ),
-          Expanded(
+          SizedBox(
+            width: 200.0,
+            height: 100.0,
             child: Container(
-              color: Color.fromARGB(255, 255, 125, 0),
-              child: Text(
-                'Two',
-                style: TextStyle(
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Roboto'),
+              child: Container(
+                color: Color.fromARGB(255, 255, 125, 0),
+                child: Text(
+                  'Two',
+                  style: TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto'),
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Expanded(
+          SizedBox(
+            width: 200.0,
+            height: 200.0,
+            child: Container(
               child: Container(
                 color: Color.fromARGB(255, 255, 0, 0),
                 child: Text(
-                  'One',
+                  'Three',
                   style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.w400,
