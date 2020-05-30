@@ -29,8 +29,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _message;
-  bool _checked = false;
+  String _message;
+  String _selected = 'A';
   @override
   void initState() {
     _message = 'ok';
@@ -63,12 +63,51 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Checkbox(
-                  value: _checked,
-                  onChanged: checkChanged,
+                Radio<String>(
+                  value: 'A',
+                  groupValue: _selected,
+                  onChanged: (String value) => checkChanged(value),
                 ),
                 Text(
-                  'check',
+                  'A',
+                  style: TextStyle(
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto'),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Radio<String>(
+                  value: 'B',
+                  groupValue: _selected,
+                  onChanged: (String value) => checkChanged(value),
+                ),
+                Text(
+                  'B',
+                  style: TextStyle(
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto'),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Radio<String>(
+                  value: 'C',
+                  groupValue: _selected,
+                  onChanged: (String value) => checkChanged(value),
+                ),
+                Text(
+                  'C',
                   style: TextStyle(
                       fontSize: 28.0,
                       fontWeight: FontWeight.w400,
@@ -80,10 +119,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  void checkChanged(bool val) {
+  void checkChanged(String val) {
     setState(() {
-      _checked = val;
-      _message = val ? 'checked' : 'not checked';
+      _selected = val;
+      _message = 'selected:$_selected';
     });
   }
 }
