@@ -34,38 +34,42 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('App Name'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Left',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Roboto'),
+          Expanded(
+            child: Container(
+              color: Color.fromARGB(255, 255, 255, 0),
+              child: Text(
+                'One',
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Roboto'),
+              ),
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              'Center',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Roboto'),
+          Expanded(
+            child: Container(
+              color: Color.fromARGB(255, 255, 125, 0),
+              child: Text(
+                'One',
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Roboto'),
+              ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'Right',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Roboto'),
+          Expanded(
+            child: Container(
+              color: Color.fromARGB(255, 255, 0, 0),
+              child: Text(
+                'One',
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Roboto'),
+              ),
             ),
           ),
         ],
