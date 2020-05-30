@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message;
-  String _selected = 'A';
+  String _selected = 'One';
   @override
   void initState() {
     _message = 'ok';
@@ -58,60 +58,26 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.all(10.0),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Radio<String>(
-                  value: 'A',
-                  groupValue: _selected,
-                  onChanged: (String value) => checkChanged(value),
+            DropdownButton<String>(
+              onChanged: (String value) => popupSelected(value),
+              value: _selected,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto'),
+              items: <DropdownMenuItem<String>>[
+                const DropdownMenuItem<String>(
+                  value: 'One',
+                  child: const Text('One'),
                 ),
-                Text(
-                  'A',
-                  style: TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto'),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Radio<String>(
-                  value: 'B',
-                  groupValue: _selected,
-                  onChanged: (String value) => checkChanged(value),
+                const DropdownMenuItem<String>(
+                  value: 'Two',
+                  child: const Text('Two'),
                 ),
-                Text(
-                  'B',
-                  style: TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto'),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Radio<String>(
-                  value: 'C',
-                  groupValue: _selected,
-                  onChanged: (String value) => checkChanged(value),
-                ),
-                Text(
-                  'C',
-                  style: TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto'),
+                const DropdownMenuItem<String>(
+                  value: 'Three',
+                  child: const Text('Three'),
                 )
               ],
             )
@@ -119,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  void checkChanged(String val) {
+  void popupSelected(String val) {
     setState(() {
       _selected = val;
       _message = 'selected:$_selected';
