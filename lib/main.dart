@@ -56,13 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
                           fontSize: 32.0))),
-              RaisedButton(
-                onPressed: buttonPressed,
-                color: Colors.black12,
-                child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Icon(Icons.android, size: 50.0)),
-              ),
+              IconButton(
+                  icon: const Icon(Icons.insert_emoticon),
+                  iconSize: 100.0,
+                  color: Colors.red,
+                  onPressed: buttonPressed),
             ],
           ),
         ));
