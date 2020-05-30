@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
                           fontSize: 32.0))),
-              FlatButton(
+              RaisedButton(
                 onPressed: buttonPressed,
                 color: Colors.black12,
                 child: Padding(
