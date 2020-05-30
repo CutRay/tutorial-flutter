@@ -36,51 +36,29 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 100.0,
-            height: 200.0,
+          FractionallySizedBox(
+            widthFactor: 0.25,
             child: Container(
-              child: Container(
-                color: Color.fromARGB(255, 255, 255, 0),
-                child: Text(
-                  'One',
-                  style: TextStyle(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto'),
-                ),
+              color: Color.fromARGB(255, 255, 255, 0),
+              child: Text(
+                'One',
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Roboto'),
               ),
             ),
           ),
-          SizedBox(
-            width: 200.0,
-            height: 100.0,
+          FractionalTranslation(
+            translation: Offset(1.0, 1.0),
             child: Container(
-              child: Container(
-                color: Color.fromARGB(255, 255, 125, 0),
-                child: Text(
-                  'Two',
-                  style: TextStyle(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto'),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 200.0,
-            height: 200.0,
-            child: Container(
-              child: Container(
-                color: Color.fromARGB(255, 255, 0, 0),
-                child: Text(
-                  'Three',
-                  style: TextStyle(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Roboto'),
-                ),
+              color: Color.fromARGB(255, 255, 255, 0),
+              child: Text(
+                'One',
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Roboto'),
               ),
             ),
           ),
