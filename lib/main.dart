@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(
+          Container(
             child: Container(
               color: Color.fromARGB(255, 255, 255, 0),
               child: Text(
@@ -48,11 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.all(25.0),
+          ),
           Expanded(
             child: Container(
               color: Color.fromARGB(255, 255, 125, 0),
               child: Text(
-                'One',
+                'Two',
                 style: TextStyle(
                     fontSize: 32.0,
                     fontWeight: FontWeight.w400,
@@ -60,15 +63,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              color: Color.fromARGB(255, 255, 0, 0),
-              child: Text(
-                'One',
-                style: TextStyle(
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Roboto'),
+          Padding(
+            padding: EdgeInsets.all(25.0),
+            child: Expanded(
+              child: Container(
+                color: Color.fromARGB(255, 255, 0, 0),
+                child: Text(
+                  'One',
+                  style: TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Roboto'),
+                ),
               ),
             ),
           ),
