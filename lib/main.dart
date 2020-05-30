@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = false;
   runApp(new MyApp());
 }
 
@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _message;
-  static var _janken = <String>['グー', 'チョキ', 'パー'];
+  final controller = TextEditingController();
   @override
   void initState() {
     _message = 'ok';
@@ -56,19 +56,25 @@ class _MyHomePageState extends State<MyHomePage> {
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
                           fontSize: 32.0))),
-              IconButton(
-                  icon: const Icon(Icons.insert_emoticon),
-                  iconSize: 100.0,
-                  color: Colors.red,
-                  onPressed: buttonPressed),
+              Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: controller,
+                    onChanged: textChanged,
+                    style: TextStyle(
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Roboto',
+                        color: const Color(0xFFFF0000)),
+                  )),
             ],
           ),
         ));
   }
 
-  void buttonPressed() {
+  void textChanged(String val) {
     setState(() {
-      _message = (_janken..shuffle()).first;
+      _message = 'you said ' + val.toUpperCase();
     });
   }
 }
