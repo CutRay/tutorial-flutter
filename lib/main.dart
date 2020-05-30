@@ -33,37 +33,33 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('App Name'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          FractionallySizedBox(
-            widthFactor: 0.25,
-            child: Container(
-              color: Color.fromARGB(255, 255, 255, 0),
-              child: Text(
-                'One',
-                style: TextStyle(
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Roboto'),
-              ),
+      body: Center(
+          child: Card(
+        margin: EdgeInsets.all(50.0),
+        child: Column(
+          children: <Widget>[
+            Text(
+              'Hello',
+              style: TextStyle(
+                  fontSize: 32.0,
+                  color: const Color(0xFF000000),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto'),
             ),
-          ),
-          FractionalTranslation(
-            translation: Offset(1.0, 1.0),
-            child: Container(
-              color: Color.fromARGB(255, 255, 255, 0),
-              child: Text(
-                'One',
-                style: TextStyle(
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Roboto'),
-              ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
             ),
-          ),
-        ],
-      ),
+            Text(
+              'This is Card Layout' * 5,
+              style: TextStyle(
+                  fontSize: 24.0,
+                  color: const Color(0xFF0000FF),
+                  fontWeight: FontWeight.w200,
+                  fontFamily: 'Roboto'),
+            ),
+          ],
+        ),
+      )),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.android), onPressed: fabPressed),
     );
