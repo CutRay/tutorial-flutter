@@ -59,48 +59,32 @@ class MyRenderBoxWidget extends SingleChildRenderObjectWidget {
 
 class _MyRenderBox extends RenderBox {
   ui.Image _img;
+  Offset _pos;
 
   @override
   bool hitTest(HitTestResult result, {@required Offset position}) {
+    result.add(BoxHitTestEntry(this, position));
     return true;
   }
 
-  _MyRenderBox() {
-    loadAssetImage('img.jpg');
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+    super.handleEvent(event, entry);
+    _pos = event.position;
+    markNeedsPaint();
   }
-
-  loadAssetImage(String fname) => rootBundle.load("assets/$fname").then((bd) {
-        Uint8List u8lst = Uint8List.view(bd.buffer);
-        ui.instantiateImageCodec(u8lst).then((codec) {
-          codec.getNextFrame().then((frameInfo) {
-            _img = frameInfo.image;
-            markNeedsPaint();
-            print("_img created: $_img");
-          });
-        });
-      });
 
   @override
   void paint(PaintingContext context, Offset offset) {
     Canvas c = context.canvas;
-    int dx = offset.dx.toInt();
-    int dy = offset.dy.toInt();
-
-    if (_img != null) {
-      c.drawImage(_img, Offset(dx + 50.0, dy + 50.0), Paint());
+    c.drawColor(Colors.black, BlendMode.clear);
+    if (_pos != null) {
+      Paint p = Paint();
+      p.style = PaintingStyle.fill;
+      for (var i = 0; i < 10; i++) {
+        p.color = Color.fromARGB(50, 255, 255, 255);
+        c.drawCircle(_pos, i * 5.0, p);
+      }
     }
-
-    Paint p = Paint();
-    p.style = PaintingStyle.fill;
-
-    c.save();
-    Rect r = Rect.fromLTWH(dx + 70.0, dy + 70.0, 130.0, 130.0);
-    c.clipRect(r);
-    c.drawColor(Color.fromARGB(255, 255, 0, 0), BlendMode.darken);
-    c.restore();
-    r = Rect.fromLTWH(dx + 200.0, dy + 200.0, 130.0, 130.0);
-    c.clipRect(r);
-    c.drawColor(Color.fromARGB(255, 0, 255, 0), BlendMode.lighten);
-    c.restore();
   }
 }
