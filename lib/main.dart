@@ -88,8 +88,11 @@ class _MyRenderBox extends RenderBox {
 
     Paint p = Paint();
     Offset off = Offset(dx + 50.0, dy + 50.0);
+    Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 200.0, 200.0);
     if (_img != null) {
-      c.drawImage(_img, off, p);
+      Rect r0 = Rect.fromLTWH(
+          0.0, 0.0, _img.width.toDouble(), _img.height.toDouble());
+      c.drawImageRect(_img, r0, r, p);
       print('draw _img.');
     } else {
       print('_img is null.');
