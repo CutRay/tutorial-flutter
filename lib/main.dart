@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = false;
   runApp(new MyApp());
 }
 
@@ -29,113 +29,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _message;
-  int _index;
+  List _items = <Widget>[];
+
   @override
   void initState() {
-    _message = 'ok';
     super.initState();
+    for (var i = 0; i < 20; i++) {
+      var item = Container(
+        color: i.isOdd ? Colors.blue : Colors.white,
+        height: 100.0,
+        child: Center(
+          child: Text(
+            'No, $i',
+            style: const TextStyle(fontSize: 32.0),
+          ),
+        ),
+      );
+      _items.add(item);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: AppBar(
-          title: Text('App Name'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                color: Colors.blue,
-                height: 120.0,
-                child: const Center(
-                    child: Text('One', style: const TextStyle(fontSize: 32.0))),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+              pinned: true,
+              expandedHeight: 200.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: const Text('Sliver App Bar'),
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Image.network(
+                      'https://github.com/flutter/website/blob/master/_includes/code/layout/lakes/images/lake.jpg?raw=true',
+                      fit: BoxFit.fill,
+                    )
+                  ],
+                ),
               ),
-              Container(
-                color: Colors.white,
-                height: 120.0,
-                child: const Center(
-                    child: Text('Two', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.blue,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('Three', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.white,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('Four', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.blue,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('Five', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.white,
-                height: 120.0,
-                child: const Center(
-                    child: Text('Six', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.blue,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('Seven', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.white,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('Eight', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.blue,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('Nine', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.white,
-                height: 120.0,
-                child: const Center(
-                    child: Text('Ten', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.blue,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('eleven', style: const TextStyle(fontSize: 32.0))),
-              ),
-              Container(
-                color: Colors.white,
-                height: 120.0,
-                child: const Center(
-                    child:
-                        Text('Twelve', style: const TextStyle(fontSize: 32.0))),
-              ),
-            ],
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.android),
+                  tooltip: 'icon button',
+                  onPressed: () {
+                    print('pressed.');
+                  },
+                ),
+              ]),
+          SliverList(
+            delegate: SliverChildListDelegate(_items),
           ),
-        ));
-  }
-
-  void tapTile() {
-    setState(() {
-      _message = 'you tatpped: No,$_index.';
-    });
+        ],
+      ),
+    );
   }
 }
