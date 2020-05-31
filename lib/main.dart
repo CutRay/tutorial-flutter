@@ -75,20 +75,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void buttonPressed() {
-    showDialog(
+    showModalBottomSheet(
         context: context,
-        builder: (BuildContext context) => SimpleDialog(
-              title: const Text('Select assignment'),
+        builder: (BuildContext context) => Column(
               children: <Widget>[
-                SimpleDialogOption(
-                    onPressed: () => Navigator.pop<String>(context, 'One'),
-                    child: Text('One')),
-                SimpleDialogOption(
-                    onPressed: () => Navigator.pop<String>(context, 'Two'),
-                    child: Text('Two')),
-                SimpleDialogOption(
-                    onPressed: () => Navigator.pop<String>(context, 'Three'),
-                    child: Text('Three')),
+                Text(
+                  'This is Model Bottom Sheet',
+                  style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black),
+                ),
+                Padding(padding: EdgeInsets.all(10.0)),
+                FlatButton(
+                    onPressed: () => Navigator.pop<String>(context, 'Close'),
+                    child: Text(
+                      'Close',
+                      style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.cyan),
+                    ))
               ],
             )).then((value) => resultAlert(value));
   }
