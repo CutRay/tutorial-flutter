@@ -30,7 +30,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message;
-  int _index = 0;
 
   @override
   void initState() {
@@ -44,30 +43,32 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('App Name'),
       ),
-      body: Center(
-        child: Text(
-          _message,
-          style: const TextStyle(fontSize: 28.0),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              title: Text('bottom'), icon: Icon(Icons.android)),
-          BottomNavigationBarItem(
-              title: Text('bottom'), icon: Icon(Icons.favorite))
+      body: Column(
+        children: <Widget>[
+          Text(
+            _message,
+            style: TextStyle(fontSize: 20.0),
+          ),
+          ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+            children: <Widget>[
+              Text(
+                'FIrst item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Text(
+                'Second item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Text(
+                'Third item',
+                style: TextStyle(fontSize: 24.0),
+              )
+            ],
+          )
         ],
-        onTap: tapBottomIcon,
       ),
     );
-  }
-
-  void tapBottomIcon(int value) {
-    var items = ['Android', 'Heart'];
-    setState(() {
-      _index = value;
-      _message = 'you tapped "' + items[_index] + '".';
-    });
   }
 }
