@@ -86,17 +86,21 @@ class _MyRenderBox extends RenderBox {
     int dx = offset.dx.toInt();
     int dy = offset.dy.toInt();
 
-    Paint p = Paint();
-    Offset off = Offset(dx + 50.0, dy + 50.0);
-    Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 200.0, 200.0);
     if (_img != null) {
-      Rect r0 = Rect.fromLTWH(
-          0.0, 0.0, _img.width.toDouble(), _img.height.toDouble());
-      c.drawImageRect(_img, r0, r, p);
-      c.drawColor(Color.fromARGB(255, 0, 0, 255), BlendMode.multiply);
-      print('draw _img.');
-    } else {
-      print('_img is null.');
+      c.drawImage(_img, Offset(dx + 50.0, dy + 50.0), Paint());
     }
+
+    Paint p = Paint();
+    p.style = PaintingStyle.fill;
+
+    c.save();
+    Rect r = Rect.fromLTWH(dx + 70.0, dy + 70.0, 130.0, 130.0);
+    c.clipRect(r);
+    c.drawColor(Color.fromARGB(255, 255, 0, 0), BlendMode.darken);
+    c.restore();
+    r = Rect.fromLTWH(dx + 200.0, dy + 200.0, 130.0, 130.0);
+    c.clipRect(r);
+    c.drawColor(Color.fromARGB(255, 0, 255, 0), BlendMode.lighten);
+    c.restore();
   }
 }
