@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
+
+import 'dart:math';
+import 'dart:typed_data';
+import 'dart:async';
+import 'dart:ui' as ui;
 
 void main() {
   debugPaintSizeEnabled = false;
@@ -30,167 +37,73 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _message = 'ok';
-  bool _switch = true;
-  double _slider = 0.0;
+  GlobalKey _homeStateKey = GlobalKey();
+  Offset _pos;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 235, 235),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        title: Text('App Name'),
+        title: Text(
+          'App Name',
+          style: TextStyle(fontSize: 30.0),
+        ),
       ),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              _message,
-              style: TextStyle(
-                  fontSize: 32.0,
-                  color: const Color(0xFF000000),
-                  fontWeight: FontWeight.w400,
-                  fontFamily: "Roboto"),
+      body: Center(
+        child: Listener(
+          onPointerDown: _pointerDown,
+          onPointerMove: _pointerMove,
+          child: CustomPaint(
+            key: _homeStateKey,
+            painter: MyPainter(_pos),
+            child: ConstrainedBox(
+              constraints: BoxConstraints.expand(),
             ),
-
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-            ),
-
-            // スイッチ
-            CupertinoSwitch(
-              value: _switch,
-              onChanged: (bool value) {
-                print('switch.');
-                setState(() {
-                  _switch = value;
-                  _message = 'switch: $_switch';
-                });
-              },
-            ),
-
-            // スライダー
-            CupertinoSlider(
-              value: _slider,
-              min: 0.0,
-              max: 1.0,
-              divisions: 100,
-              onChanged: (double value) {
-                print(value);
-                setState(() {
-                  _slider = value;
-                  _message = 'slider: $_slider';
-                });
-              },
-            ),
-
-            // ボタン
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: CupertinoButton(
-                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                    pressedOpacity: 0.5,
-                    color: CupertinoColors.activeBlue,
-                    onPressed: buttonPressed,
-                    padding: EdgeInsets.all(20.0),
-                    child: Text(
-                      "tap me!",
-                      style: TextStyle(
-                          fontSize: 28.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Roboto"),
-                    )))
-          ]),
-
-      // ナビゲーションバー
-      bottomNavigationBar: CupertinoNavigationBar(
-        leading: Icon(CupertinoIcons.left_chevron),
-        middle: Text('Navigation'),
-        trailing: IconButton(
-            icon: Icon(CupertinoIcons.right_chevron), onPressed: showPicker),
+          ),
+        ),
       ),
     );
   }
 
-  // ボタン・イベント
-  void buttonPressed() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: Text("Hello!"),
-        content: const Text("This is sample."),
-        actions: <Widget>[
-          CupertinoDialogAction(
-              child: const Text('Cancel'),
-              onPressed: () => Navigator.pop<String>(context, 'Cancel')),
-          CupertinoDialogAction(
-              child: const Text('OK'),
-              onPressed: () => Navigator.pop<String>(context, 'OK'))
-        ],
-      ),
-    ).then<void>((value) => resultAlert(value));
-  }
-
-  // ダイアログアクション・イベント
-  void resultAlert(String value) {
+  void _pointerDown(PointerDownEvent event) {
+    RenderBox referenceBox = _homeStateKey.currentContext.findRenderObject();
     setState(() {
-      _message = 'selected: $value';
+      _pos = referenceBox.globalToLocal(event.position);
     });
   }
 
-  // ピッカー表示
-  void showPicker() {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoPicker(
-          backgroundColor: CupertinoColors.black,
-          itemExtent: 50.0,
-          children: <Widget>[
-            Text(
-              'One',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-            Text(
-              'Two',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-            Text(
-              'Three',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-            Text(
-              'Four',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-            Text(
-              'Five',
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-          ],
-          onSelectedItemChanged: (int value) {
-            print('pick $value');
-          },
-        );
-      },
-    );
+  void _pointerMove(PointerMoveEvent event) {
+    RenderBox referenceBox = _homeStateKey.currentContext.findRenderObject();
+    setState(() {
+      _pos = referenceBox.globalToLocal(event.position);
+    });
   }
+}
+
+class MyPainter extends CustomPainter {
+  Offset _pos;
+
+  MyPainter(this._pos);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint p = Paint();
+    p.style = PaintingStyle.fill;
+    p.color = Color.fromARGB(25, 255, 0, 0);
+    if (_pos != null) {
+      for (var i = 0; i < 10; i++) {
+        canvas.drawCircle(_pos, 10.0 * i, p);
+      }
+      canvas.drawCircle(_pos, 50.0, p);
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
