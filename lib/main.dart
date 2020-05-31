@@ -65,37 +65,23 @@ class _MyRenderBox extends RenderBox {
     return true;
   }
 
-  _MyRenderBox() {
-    loadAssetImage('img.jpg');
-  }
-
-  loadAssetImage(String fname) => rootBundle.load("assets/$fname").then((bd) {
-        Uint8List u8lst = Uint8List.view(bd.buffer);
-        ui.instantiateImageCodec(u8lst).then((codec) {
-          codec.getNextFrame().then((frameInfo) {
-            _img = frameInfo.image;
-            markNeedsPaint();
-            print("_img created: $_img");
-          });
-        });
-      });
-
   @override
   void paint(PaintingContext context, Offset offset) {
     Canvas c = context.canvas;
     int dx = offset.dx.toInt();
     int dy = offset.dy.toInt();
 
+    Path path = Path();
+    Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 75.0, 75.0);
+    path.addOval(r);
+    r = Rect.fromLTWH(dx + 75.0, dy + 75.0, 125.0, 125.0);
+    path.addOval(r);
+    r = Rect.fromLTWH(dx + 125.0, dy + 125.0, 175.0, 175.0);
+    path.addOval(r);
+
     Paint p = Paint();
-    Offset off = Offset(dx + 50.0, dy + 50.0);
-    Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 200.0, 200.0);
-    if (_img != null) {
-      Rect r0 = Rect.fromLTWH(
-          0.0, 0.0, _img.width.toDouble(), _img.height.toDouble());
-      c.drawImageRect(_img, r0, r, p);
-      print('draw _img.');
-    } else {
-      print('_img is null.');
-    }
+    p.color = Color.fromARGB(150, 255, 0, 0);
+    p.style = PaintingStyle.fill;
+    c.drawPath(path, p);
   }
 }
