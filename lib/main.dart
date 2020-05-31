@@ -30,7 +30,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message;
-  double _value = 0.0;
   @override
   void initState() {
     _message = 'ok';
@@ -46,11 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
               _message,
               style: TextStyle(
+                  color: const Color(0xFF000000),
                   fontSize: 32.0,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Roboto'),
@@ -58,21 +58,33 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.all(10.0),
             ),
-            Slider(
-              onChanged: sliderChanged,
-              min: 0.0,
-              max: 100.0,
-              divisions: 20,
-              value: _value,
+            RaisedButton(
+              onPressed: buttonPressed,
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                'tap me.',
+                style: TextStyle(
+                    color: const Color(0xFF000000),
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Roboto'),
+              ),
             )
           ],
         ));
   }
 
-  void sliderChanged(double val) {
-    setState(() {
-      _value = val;
-      _message = 'value:$_value';
-    });
+  void buttonPressed() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => Container(
+            color: Colors.white,
+            child: Text(
+              'Hello',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28.0,
+                  decorationStyle: TextDecorationStyle.solid),
+            )));
   }
 }
