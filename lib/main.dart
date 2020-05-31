@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 void main() {
-  debugPaintSizeEnabled = false;
+  debugPaintSizeEnabled = true;
   runApp(new MyApp());
 }
 
@@ -40,51 +40,97 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title: Text('App Name'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Text(
-            _message,
-            style: TextStyle(fontSize: 20.0),
-          ),
-          ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(20.0),
+        appBar: AppBar(
+          title: Text('App Name'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              ListTile(
-                leading: const Icon(Icons.android),
-                title: const Text('First item'),
-                selected: _index == 1,
-                onTap: () {
-                  _index = 1;
-                  tapTile();
-                },
+              Container(
+                color: Colors.blue,
+                height: 120.0,
+                child: const Center(
+                    child: Text('One', style: const TextStyle(fontSize: 32.0))),
               ),
-              ListTile(
-                leading: const Icon(Icons.favorite),
-                title: const Text('Second item'),
-                selected: _index == 2,
-                onTap: () {
-                  _index = 2;
-                  tapTile();
-                },
+              Container(
+                color: Colors.white,
+                height: 120.0,
+                child: const Center(
+                    child: Text('Two', style: const TextStyle(fontSize: 32.0))),
               ),
-              ListTile(
-                leading: const Icon(Icons.favorite_border),
-                title: const Text('Third item'),
-                selected: _index == 3,
-                onTap: () {
-                  _index = 3;
-                  tapTile();
-                },
-              )
+              Container(
+                color: Colors.blue,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('Three', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.white,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('Four', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.blue,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('Five', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.white,
+                height: 120.0,
+                child: const Center(
+                    child: Text('Six', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.blue,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('Seven', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.white,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('Eight', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.blue,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('Nine', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.white,
+                height: 120.0,
+                child: const Center(
+                    child: Text('Ten', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.blue,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('eleven', style: const TextStyle(fontSize: 32.0))),
+              ),
+              Container(
+                color: Colors.white,
+                height: 120.0,
+                child: const Center(
+                    child:
+                        Text('Twelve', style: const TextStyle(fontSize: 32.0))),
+              ),
             ],
-          )
-        ],
-      ),
-    );
+          ),
+        ));
   }
 
   void tapTile() {
