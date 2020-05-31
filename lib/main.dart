@@ -30,6 +30,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message;
+  String _stars = '';
+  int _star = 2;
+
   @override
   void initState() {
     _message = 'ok';
@@ -41,68 +44,55 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
         appBar: AppBar(
           title: Text('App Name'),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              _message,
-              style: TextStyle(
-                  color: const Color(0xFF000000),
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Roboto'),
+          leading: BackButton(
+            color: Colors.white,
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.android),
+              tooltip: 'add star...',
+              onPressed: iconPressedA,
             ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
+            IconButton(
+              icon: Icon(Icons.favorite),
+              tooltip: 'subtract star...',
+              onPressed: iconPressedB,
             ),
-            RaisedButton(
-              onPressed: buttonPressed,
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                'tap me.',
-                style: TextStyle(
-                    color: const Color(0xFF000000),
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Roboto'),
-              ),
-            )
           ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(30.0),
+            child: Center(
+                child: Text(
+              _stars,
+              style: TextStyle(fontSize: 22.0, color: Colors.white),
+            )),
+          ),
+        ),
+        body: Center(
+          child: Text(
+            _message,
+            style: const TextStyle(fontSize: 28.0),
+          ),
         ));
   }
 
-  void buttonPressed() {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) => Column(
-              children: <Widget>[
-                Text(
-                  'This is Model Bottom Sheet',
-                  style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black),
-                ),
-                Padding(padding: EdgeInsets.all(10.0)),
-                FlatButton(
-                    onPressed: () => Navigator.pop<String>(context, 'Close'),
-                    child: Text(
-                      'Close',
-                      style: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.cyan),
-                    ))
-              ],
-            )).then((value) => resultAlert(value));
+  void iconPressedA() {
+    _message = 'tap "android".';
+    _star++;
+    update();
   }
 
-  void resultAlert(String value) {
+  void iconPressedB() {
+    _message = 'tap "favorite".';
+    _star--;
+    update();
+  }
+
+  void update() {
+    _star = _star < 0 ? 0 : _star > 5 ? 5 : _star;
     setState(() {
-      _message = 'selected: $value';
+      _stars = ('★' * 5 + '☆' * 5).substring(5 - _star, 5 - _star + 5);
+      _message = _message + '[$_stars]';
     });
   }
 }
