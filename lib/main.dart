@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 
-import 'dart:math';
+import 'dart:typed_data';
+import 'dart:async';
 import 'dart:ui' as ui;
 
 void main() {
@@ -63,37 +65,38 @@ class _MyRenderBox extends RenderBox {
     return true;
   }
 
+  _MyRenderBox() {
+    loadAssetImage('img.jpg');
+  }
+
+  loadAssetImage(String fname) => rootBundle.load("assets/$fname").then((bd) {
+        Uint8List u8lst = Uint8List.view(bd.buffer);
+        ui.instantiateImageCodec(u8lst).then((codec) {
+          codec.getNextFrame().then((frameInfo) {
+            _img = frameInfo.image;
+            markNeedsPaint();
+            print("_img created: $_img");
+          });
+        });
+      });
+
   @override
   void paint(PaintingContext context, Offset offset) {
     Canvas c = context.canvas;
     int dx = offset.dx.toInt();
     int dy = offset.dy.toInt();
 
-    Path path = Path();
-    Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 75.0, 75.0);
-    path.addOval(r);
-    r = Rect.fromLTWH(dx + 75.0, dy + 75.0, 125.0, 125.0);
-    path.addOval(r);
-    r = Rect.fromLTWH(dx + 125.0, dy + 125.0, 175.0, 175.0);
-    path.addOval(r);
-
     Paint p = Paint();
-    p.style = PaintingStyle.fill;
-
-    c.save();
-    c.clipPath(path);
-
-    for (var i = 0; i < 100; i++) {
-      Random rnd = Random();
-      double w = rnd.nextInt(dx + 300).toDouble();
-      double h = rnd.nextInt(dy + 300).toDouble();
-      double cr = rnd.nextInt(50).toDouble();
-      int r = rnd.nextInt(255);
-      int g = rnd.nextInt(255);
-      int b = rnd.nextInt(255);
-      p.color = Color.fromARGB(50, r, g, b);
-      c.drawCircle(Offset(w, h), cr, p);
+    Offset off = Offset(dx + 50.0, dy + 50.0);
+    Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 200.0, 200.0);
+    if (_img != null) {
+      Rect r0 = Rect.fromLTWH(
+          0.0, 0.0, _img.width.toDouble(), _img.height.toDouble());
+      c.drawImageRect(_img, r0, r, p);
+      c.drawColor(Color.fromARGB(255, 0, 0, 255), BlendMode.multiply);
+      print('draw _img.');
+    } else {
+      print('_img is null.');
     }
-    c.restore();
   }
 }
