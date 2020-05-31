@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(new MyApp());
 }
 
@@ -27,43 +29,80 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String _message;
+  @override
+  void initState() {
+    _message = 'ok';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title: Text('App Name'),
-      ),
-      body: Center(
-          child: Card(
-        margin: EdgeInsets.all(50.0),
-        child: Column(
+        appBar: AppBar(
+          title: Text('App Name'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              'Hello',
+              _message,
               style: TextStyle(
-                  fontSize: 32.0,
                   color: const Color(0xFF000000),
+                  fontSize: 32.0,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Roboto'),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0),
             ),
-            Text(
-              'This is Card Layout' * 5,
-              style: TextStyle(
-                  fontSize: 24.0,
-                  color: const Color(0xFF0000FF),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: 'Roboto'),
-            ),
+            RaisedButton(
+              onPressed: buttonPressed,
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                'tap me.',
+                style: TextStyle(
+                    color: const Color(0xFF000000),
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Roboto'),
+              ),
+            )
           ],
-        ),
-      )),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.android), onPressed: fabPressed),
-    );
+        ));
   }
 
-  void fabPressed() {}
+  void buttonPressed() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) => Column(
+              children: <Widget>[
+                Text(
+                  'This is Model Bottom Sheet',
+                  style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black),
+                ),
+                Padding(padding: EdgeInsets.all(10.0)),
+                FlatButton(
+                    onPressed: () => Navigator.pop<String>(context, 'Close'),
+                    child: Text(
+                      'Close',
+                      style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.cyan),
+                    ))
+              ],
+            )).then((value) => resultAlert(value));
+  }
+
+  void resultAlert(String value) {
+    setState(() {
+      _message = 'selected: $value';
+    });
+  }
 }
